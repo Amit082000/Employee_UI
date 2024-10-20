@@ -58,6 +58,8 @@ const EmployeeList = ({ employees, departments }) => {
                   <TableCell>{emp.employeeCode}</TableCell> 
                   <TableCell>{emp.name}</TableCell> 
                   <TableCell>{emp.department ? emp.department.name : 'Unknown Department'}</TableCell> 
+                  <TableCell>{emp.address}</TableCell>
+
                 </TableRow>
               ))
             ) : (
