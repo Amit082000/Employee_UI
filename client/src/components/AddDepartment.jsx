@@ -17,7 +17,7 @@ const AddDepartment = ({ addDepartment }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await addDepartment(department); // Send data to backend
+    await addDepartment(department); 
     setDepartment({ name: '', description: '' });
   };
 

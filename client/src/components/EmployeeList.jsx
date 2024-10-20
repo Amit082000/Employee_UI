@@ -1,4 +1,3 @@
-// src/components/EmployeeList.js
 import { useState } from 'react';
 import { TextField, MenuItem, Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 
@@ -9,10 +8,10 @@ const EmployeeList = ({ employees, departments }) => {
     setFilter({ ...filter, [e.target.name]: e.target.value });
   };
 
-  const filteredEmployees = employees.filter(
-    (emp) =>
-      emp.name.toLowerCase().includes(filter.name.toLowerCase()) &&
-      (filter.department === '' || emp.department === filter.department)
+  // Filter employees by name and department
+  const filteredEmployees = employees.filter((emp) =>
+    emp.name.toLowerCase().includes(filter.name.toLowerCase()) &&
+    (filter.department === '' || (emp.department && emp.department._id === filter.department))
   );
 
   return (
@@ -35,7 +34,7 @@ const EmployeeList = ({ employees, departments }) => {
         >
           <MenuItem value="">All</MenuItem>
           {departments.map((dept) => (
-            <MenuItem key={dept.id} value={dept.name}>
+            <MenuItem key={dept._id} value={dept._id}> 
               {dept.name}
             </MenuItem>
           ))}
@@ -46,7 +45,7 @@ const EmployeeList = ({ employees, departments }) => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell><strong>ID</strong></TableCell>
+              <TableCell><strong>Employee Code</strong></TableCell>
               <TableCell><strong>Name</strong></TableCell>
               <TableCell><strong>Department</strong></TableCell>
               <TableCell><strong>Address</strong></TableCell>
@@ -55,16 +54,15 @@ const EmployeeList = ({ employees, departments }) => {
           <TableBody>
             {filteredEmployees.length > 0 ? (
               filteredEmployees.map((emp) => (
-                <TableRow key={emp.id}>
-                  <TableCell>{emp.id}</TableCell>
-                  <TableCell>{emp.name}</TableCell>
-                  <TableCell>{emp.department}</TableCell>
-                  <TableCell>{emp.address}</TableCell>
+                <TableRow key={emp._id}> {/* Changed id to _id */}
+                  <TableCell>{emp.employeeCode}</TableCell> 
+                  <TableCell>{emp.name}</TableCell> 
+                  <TableCell>{emp.department ? emp.department.name : 'Unknown Department'}</TableCell> 
                 </TableRow>
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={4} align="center">
+                <TableCell colSpan={4} align="center"> 
                   No employees found
                 </TableCell>
               </TableRow>

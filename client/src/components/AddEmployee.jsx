@@ -1,4 +1,3 @@
-// src/components/AddEmployee.js
 import React, { useState } from 'react';
 import { TextField, Button, MenuItem, Box } from '@mui/material';
 
@@ -18,7 +17,7 @@ const AddEmployee = ({ departments, addEmployee }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await addEmployee(employee); // Send data to backend
+    await addEmployee(employee); 
     setEmployee({ name: '', department: '', address: '' });
   };
 
@@ -43,11 +42,15 @@ const AddEmployee = ({ departments, addEmployee }) => {
         fullWidth
         margin="normal"
       >
-        {departments.map((dept) => (
-          <MenuItem key={dept.id} value={dept.name}>
-            {dept.name}
-          </MenuItem>
-        ))}
+        {departments && departments.length > 0 ? (
+          departments.map((dept) => (
+            <MenuItem key={dept._id} value={dept._id}>
+              {dept.name}
+            </MenuItem>
+          ))
+        ) : (
+          <MenuItem disabled>No Departments Available</MenuItem>
+        )}
       </TextField>
       <TextField
         label="Address"
